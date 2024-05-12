@@ -4398,6 +4398,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var d3__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! d3 */ "./node_modules/d3/src/index.js");
+/* harmony import */ var _Message__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Message */ "./src/Components/Message.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -4406,27 +4407,41 @@ function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" !=
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
+
 var gistJsDelivrUrl = "https://gist.githubusercontent.com/kendalenz/32ca10c126219f8c706d3298d1c9cf1d/raw/6dd746ac16877b3c6b3c04d55536d0eba032a54f/cssNamedColors.csv";
-var width = 2000;
-var height = 3000;
-var message = function message(data) {
-  var message = '';
-  message = message + Math.round(d3__WEBPACK_IMPORTED_MODULE_1__.csvFormat(data).length / 1024) + ' kb\n';
-  message = message + data.length + ' rows\n';
-  message = message + data.length + ' colmns';
-  return message;
-};
 var Home = function Home() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState2 = _slicedToArray(_useState, 2),
     data = _useState2[0],
     setData = _useState2[1];
-  d3__WEBPACK_IMPORTED_MODULE_1__.csv(gistJsDelivrUrl).then(function (data) {
-    setData(data);
-  });
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, "Data is ", data ? message(data) : 'loading');
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    d3__WEBPACK_IMPORTED_MODULE_1__.csv(gistJsDelivrUrl).then(setData);
+  }, []);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("pre", null, data ? (0,_Message__WEBPACK_IMPORTED_MODULE_2__.message)(data) : 'Loading...');
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Home);
+
+/***/ }),
+
+/***/ "./src/Components/Message.js":
+/*!***********************************!*\
+  !*** ./src/Components/Message.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   message: () => (/* binding */ message)
+/* harmony export */ });
+/* harmony import */ var d3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! d3 */ "./node_modules/d3/src/index.js");
+
+var message = function message(data) {
+  var message = '';
+  message = message + Math.round(d3__WEBPACK_IMPORTED_MODULE_0__.csvFormat(data).length / 1024) + ' kb\n';
+  message = message + data.length + ' rows\n';
+  message = message + data.length + ' colmns';
+  return message;
+};
 
 /***/ }),
 
